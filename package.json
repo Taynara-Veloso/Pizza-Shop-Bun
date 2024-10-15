@@ -7,10 +7,13 @@
     "build": "bun build src/http/server.ts --target bun --outdir ./dist",
     "start": "NODE_ENV=production bun src/http/server.ts",
     "test": "bun test",
-    "generate": "drizzle-kit generate"
+    "generate": "drizzle-kit generate",
+    "studio": "drizzle-kit studio",
+    "migrate": "bun src/db/migrate.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "chalk": "^5.3.0",
     "drizzle-kit": "^0.25.0"
   },
   "peerDependencies": {
@@ -18,8 +21,10 @@
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.34.1",
     "elysia": "^1.1.20",
-    "postgres": "^3.4.4"
+    "postgres": "^3.4.4",
+    "zod": "^3.23.8"
   }
 }
