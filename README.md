@@ -3,8 +3,13 @@
 ### Ferramentas Utilizadas
 - Bun
 - ElysiaJs
+- Docker
 - Drizzle-ORM
+- postgre
 - cuid2
+- zod
+- chalk
+- faker-js
 
 To install dependencies:
 
