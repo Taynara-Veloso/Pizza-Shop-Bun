@@ -10,6 +10,7 @@
 - zod
 - chalk
 - faker-js
+- Authentication JWT
 
 To install dependencies:
 
@@ -34,3 +35,13 @@ This project was created using `bun init` in bun v1.1.30. [Bun](https://bun.sh) 
   - criar o JWT,
   - redirecionar o usuário para o front-end.
   ).
+
+
+## Select
+
+  - eq = comparar se dois valores são iguais.
+  - ne = Not equal comparar se dois valores não são iguais.
+  - gt = o valor do campo é maior que o valor especificado.
+  - gte = o valor do campo é maior ou igual ao valor especificado.
+  - lt = o valor do campo é menor que o valor especificado.
+  - lte = o valor do campo é menor ou igual ao valor especificado.
