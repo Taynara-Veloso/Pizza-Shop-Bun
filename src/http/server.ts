@@ -1,41 +1,8 @@
-import { restaurant } from './../db/schema/restaurants'
-import { user } from '../db/schema'
-import { db } from './../db/connection'
-import { Elysia, t } from 'elysia'
+import { Elysia } from 'elysia'
+import { registerRestaurants } from './routes/register-restaurant'
+import { sendAuthLinks } from './routes/send-auth-link'
 
-const app = new Elysia().post(
-  '/restaurants',
-  async ({ body, set }) => {
-    const { restaurantName, managerName, email, phone } = body
-
-    const [manager] = await db
-      .insert(user)
-      .values({
-        name: managerName,
-        email,
-        phone,
-        role: 'manager',
-      })
-      .returning({
-        id: user.id,
-      })
-
-    await db.insert(restaurant).values({
-      name: restaurantName,
-      managerId: manager.id,
-    })
-
-    set.status = 204 // resposta de sucesso que não retorna valor
-  },
-  {
-    body: t.Object({
-      restaurantName: t.String(),
-      managerName: t.String(),
-      email: t.String(),
-      phone: t.String({ format: 'email' }),
-    }),
-  },
-)
+const app = new Elysia().use(registerRestaurants).use(sendAuthLinks)
 
 app.listen(3333, () => {
   console.log('🧅 Http server running')
