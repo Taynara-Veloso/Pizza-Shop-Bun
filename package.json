@@ -24,7 +24,10 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@elysiajs/cookie": "^0.8.0",
+    "@elysiajs/jwt": "^1.1.1",
     "@paralleldrive/cuid2": "^2.2.2",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.34.1",
     "elysia": "^1.1.20",
