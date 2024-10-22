@@ -3,7 +3,12 @@ import { auth } from '../auth/auth-jwt'
 
 export const signOut = new Elysia()
   .use(auth)
-  .post('/sign-out', async ({ cookie, cookie: { cookiesignOut } }) => {
-    cookiesignOut.remove()
-    delete cookie.cookiesignOut
+  .post('/sign-out', async ({ signOutDeleteCookie }) => {
+    signOutDeleteCookie()
+
+    console.log('signOutDeleteCookie:', signOutDeleteCookie) // Checar se está definido
+
+    if (!signOutDeleteCookie) {
+      throw new Error('signOutDeleteCookie is not available')
+    }
   })
