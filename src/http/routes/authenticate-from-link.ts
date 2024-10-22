@@ -16,7 +16,7 @@ import { authLinks } from '../../db/schema'
 // autenticador de link
 export const authenticateFromLinks = new Elysia().use(auth).get(
   '/auth-links/authenticate',
-  async ({ query, jwt, cookie: { auth } }) => {
+  async ({ query, signUserToken }) => {
     const { code, redirect } = query
 
     const authLinkFromCode = await db.query.authLinks.findFirst({
@@ -44,18 +44,9 @@ export const authenticateFromLinks = new Elysia().use(auth).get(
       },
     })
 
-    const token = await jwt.sign({
+    await signUserToken({
       sub: authLinkFromCode.userId,
       restaurantId: managedRestaurant?.id,
-    })
-
-    console.log('Gerando Token JWT', token)
-
-    auth.set({
-      value: token,
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7, // 7 Dias
-      path: '/',
     })
 
     await db.delete(authLinks).where(eq(authLinks.code, code))
