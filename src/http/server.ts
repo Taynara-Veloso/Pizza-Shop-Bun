@@ -1,9 +1,11 @@
 import { Elysia } from 'elysia'
+
 import { signOut } from './routes/sign-out'
+import { getProfile } from './routes/get-profile'
 import { sendAuthLinks } from './routes/send-auth-link'
 import { registerRestaurants } from './routes/register-restaurant'
+import { getManagedRestaurant } from './routes/get-managed-restaurant'
 import { authenticateFromLinks } from './routes/authenticate-from-link'
-import { getProfile } from './routes/get-profile'
 
 const app = new Elysia()
   .use(registerRestaurants)
@@ -11,6 +13,7 @@ const app = new Elysia()
   .use(authenticateFromLinks)
   .use(signOut)
   .use(getProfile)
+  .use(getManagedRestaurant)
 
 app.listen(3333, () => {
   console.log('🧅 Http server running')
