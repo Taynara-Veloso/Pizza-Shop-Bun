@@ -2,6 +2,7 @@ import jwt from '@elysiajs/jwt'
 import { env } from '../../env'
 import { Elysia, t, type Static } from 'elysia'
 import { UnauthorizedError } from '../errors/unauthorized-error'
+import { CookieNotFoundError } from '../errors/cookie-not-found'
 
 const jwtPayload = t.Object({
   sub: t.String(),
@@ -11,11 +12,15 @@ const jwtPayload = t.Object({
 export const auth = new Elysia()
   .error({
     UNAUTHORIZED: UnauthorizedError,
+    COOKIENOTFOUND: CookieNotFoundError,
   })
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'UNAUTHORIZED':
         set.status = 401
+        return { code, message: error.message }
+      case 'COOKIENOTFOUND':
+        set.status = 404
         return { code, message: error.message }
     }
   })
@@ -49,7 +54,7 @@ export const auth = new Elysia()
         const authCookie = cookie.auth?.value
 
         if (!authCookie) {
-          throw new Error('Cookie not found')
+          throw new CookieNotFoundError()
         }
 
         const payload = await jwt.verify(authCookie)
