@@ -1,9 +1,20 @@
 import { Elysia } from 'elysia'
 import { auth } from '../auth/auth-jwt'
 import { db } from '../../db/connection'
+import { UserNotFoundError } from '../errors/user-not-found'
 
 export const getProfile = new Elysia()
   .use(auth)
+  .error({
+    USERNOTFOUND: UserNotFoundError,
+  })
+  .onError(({ code, error, set }) => {
+    switch (code) {
+      case 'USERNOTFOUND':
+        set.status = 404
+        return { code, message: error.message }
+    }
+  })
   .get('/me', async ({ getCurrentUser }) => {
     const { userId } = await getCurrentUser()
 
@@ -14,7 +25,7 @@ export const getProfile = new Elysia()
     })
 
     if (!user) {
-      throw new Error('User not found')
+      throw new UserNotFoundError()
     }
 
     return user
