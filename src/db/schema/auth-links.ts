@@ -1,6 +1,7 @@
+import { user } from '.'
 import { createId } from '@paralleldrive/cuid2'
+
 import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
-import { user } from './users'
 
 export const authLinks = pgTable('auth_links', {
   id: text('id')
