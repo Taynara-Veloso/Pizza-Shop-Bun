@@ -29,6 +29,13 @@
       "when": 1729273015166,
       "tag": "0003_black_moondragon",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1729904799181,
+      "tag": "0004_daily_crusher_hogan",
+      "breakpoints": true
     }
   ]
 }
