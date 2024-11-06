@@ -26,10 +26,12 @@
   "dependencies": {
     "@elysiajs/jwt": "^1.1.1",
     "@paralleldrive/cuid2": "^2.2.2",
+    "@types/nodemailer": "^6.4.16",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.34.1",
     "elysia": "^1.1.20",
+    "nodemailer": "^6.9.16",
     "postgres": "^3.4.4",
     "zod": "^3.23.8"
   }
