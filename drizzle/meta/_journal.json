@@ -36,6 +36,13 @@
       "when": 1729904799181,
       "tag": "0004_daily_crusher_hogan",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1730851167751,
+      "tag": "0005_special_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }
