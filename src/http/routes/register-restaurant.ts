@@ -1,6 +1,6 @@
-import { restaurant, user } from '../../db/schema'
-import { db } from '../../db/connection'
 import { Elysia, t } from 'elysia'
+import { db } from '../../db/connection'
+import { restaurant, user } from '../../db/schema'
 
 export const registerRestaurants = new Elysia().post(
   '/restaurants',
