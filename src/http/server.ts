@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia'
 
 import { signOut } from './routes/sign-out'
+import { getOrders } from './routes/get-orders'
 import { getProfile } from './routes/get-profile'
 import { cancelOrder } from './routes/cancel-order'
 import { approveOrder } from './routes/approve-order'
@@ -24,6 +25,7 @@ const app = new Elysia()
   .use(dispatchOrder)
   .use(deliverOrder)
   .use(cancelOrder)
+  .use(getOrders)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION':
