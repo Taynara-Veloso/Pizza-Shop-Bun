@@ -4,7 +4,7 @@ import { db } from '../../db/connection'
 import { orders, user } from '../../db/schema'
 import { createSelectSchema } from 'drizzle-typebox'
 import { UnauthorizedError } from '../errors/unauthorized-error'
-import { and, count, eq, getTableColumns, ilike } from 'drizzle-orm'
+import { and, count, desc, eq, ilike, sql } from 'drizzle-orm'
 
 /* 
   ilike = verifica se o valor é como qualquer outro valor, 
@@ -21,10 +21,14 @@ export const getOrders = new Elysia().use(auth).get(
       throw new UnauthorizedError()
     }
 
-    const orderTableColumns = getTableColumns(orders)
-
     const baseQuery = db
-      .select(orderTableColumns)
+      .select({
+        orderId: orders.id,
+        createdAt: orders.createdAt,
+        status: orders.status,
+        total: orders.totalInCents,
+        customerName: user.name,
+      })
       .from(orders)
       .innerJoin(user, eq(user.id, orders.customerId))
       .where(
@@ -42,7 +46,19 @@ export const getOrders = new Elysia().use(auth).get(
         .select()
         .from(baseQuery.as('base_query'))
         .offset(pageIndex * 10)
-        .limit(10),
+        .limit(10)
+        .orderBy((fields) => {
+          return [
+            sql`CASE ${fields.status}
+              WHEN 'pending' THEN 1
+              WHEN 'processing' THEN 2
+              WHEN 'delivering' THEN 3
+              WHEN 'delivered' THEN 4
+              WHEN 'canceled' THEN 99
+            END`,
+            desc(fields.createdAt),
+          ]
+        }),
     ])
 
     /*  
