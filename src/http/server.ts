@@ -9,6 +9,7 @@ import { deliverOrder } from './routes/deliver-order'
 import { dispatchOrder } from './routes/dispatch-order'
 import { sendAuthLinks } from './routes/send-auth-link'
 import { getOrderDetails } from './routes/get-order-details'
+import { getMonthReceipt } from './routes/get-month-receipt'
 import { registerRestaurants } from './routes/register-restaurant'
 import { getManagedRestaurant } from './routes/get-managed-restaurant'
 import { authenticateFromLinks } from './routes/authenticate-from-link'
@@ -26,6 +27,7 @@ const app = new Elysia()
   .use(deliverOrder)
   .use(cancelOrder)
   .use(getOrders)
+  .use(getMonthReceipt)
   .onError(({ code, error, set }) => {
     switch (code) {
       case 'VALIDATION': {
