@@ -1,4 +1,5 @@
 import { Elysia } from 'elysia'
+import cors from '@elysiajs/cors'
 
 import { signOut } from './routes/sign-out'
 import { getOrders } from './routes/get-orders'
@@ -20,6 +21,7 @@ import { getDailyReceiptInPeriod } from './routes/get-daily-receipt-in-period'
 import { getMonthCanceledOrdersAmount } from './routes/get-month-canceled-orders-amount'
 
 const app = new Elysia()
+  .use(cors())
   .use(registerRestaurants)
   .use(sendAuthLinks)
   .use(authenticateFromLinks)
