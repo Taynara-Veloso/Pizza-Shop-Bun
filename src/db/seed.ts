@@ -52,13 +52,11 @@ console.log(chalk.green('✅ Created customer!'))
 */
 const [manager] = await db
   .insert(user)
-  .values([
-    {
-      name: faker.person.fullName(),
-      email: 'admin@admin.com',
-      role: 'manager',
-    },
-  ])
+  .values({
+    name: faker.person.fullName(),
+    email: 'admin@admin.com',
+    role: 'manager',
+  })
   .returning({
     id: user.id,
   })
